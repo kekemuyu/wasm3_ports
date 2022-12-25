@@ -1,0 +1,26 @@
+--cpu Cortex-M3
+"wasm_led\startup_stm32f103xb.o"
+"wasm_led\main.o"
+"wasm_led\stm32f1xx_it.o"
+"wasm_led\stm32f1xx_hal_msp.o"
+"wasm_led\stm32f1xx_hal_gpio_ex.o"
+"wasm_led\stm32f1xx_hal_tim.o"
+"wasm_led\stm32f1xx_hal_tim_ex.o"
+"wasm_led\stm32f1xx_hal.o"
+"wasm_led\stm32f1xx_hal_rcc.o"
+"wasm_led\stm32f1xx_hal_rcc_ex.o"
+"wasm_led\stm32f1xx_hal_gpio.o"
+"wasm_led\stm32f1xx_hal_dma.o"
+"wasm_led\stm32f1xx_hal_cortex.o"
+"wasm_led\stm32f1xx_hal_pwr.o"
+"wasm_led\stm32f1xx_hal_flash.o"
+"wasm_led\stm32f1xx_hal_flash_ex.o"
+"wasm_led\stm32f1xx_hal_exti.o"
+"wasm_led\system_stm32f1xx.o"
+"wasm_led\interpreter.o"
+"wasm_led\module.o"
+"wasm_led\utils.o"
+--strict --scatter "wasm_led\wasm_led.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "wasm_led.map" -o wasm_led\wasm_led.axf

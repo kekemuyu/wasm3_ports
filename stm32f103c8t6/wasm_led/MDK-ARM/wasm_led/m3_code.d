@@ -1,0 +1,15 @@
+wasm_led\m3_code.o: ..\wasm3\src\m3_code.c
+wasm_led\m3_code.o: ..\wasm3\src\m3_code.h
+wasm_led\m3_code.o: ..\wasm3\src\m3_core.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+wasm_led\m3_code.o: ..\wasm3\src\wasm3.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+wasm_led\m3_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+wasm_led\m3_code.o: ..\wasm3\src\wasm3_defs.h
+wasm_led\m3_code.o: ..\wasm3\src\m3_config.h
+wasm_led\m3_code.o: ..\wasm3\src\m3_config_platforms.h

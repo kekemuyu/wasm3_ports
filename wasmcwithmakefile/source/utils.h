@@ -18,23 +18,23 @@ extern char exception[];
 
 // 报错
 #define FATAL(...)                                             \
-    {                                                          \
-        fprintf(stderr, "Error(%s:%d): ", __FILE__, __LINE__); \
-        fprintf(stderr, __VA_ARGS__);                          \
-        exit(1);                                               \
-    }
+    // {                                                          \
+    //     fprintf(stderr, "Error(%s:%d): ", __FILE__, __LINE__); \
+    //     fprintf(stderr, __VA_ARGS__);                          \
+    //     exit(1);                                               \
+    // }
 
 // 断言
 #define ASSERT(exp, ...)                                                    \
-    {                                                                       \
-        if (!(exp)) {                                                       \
-            fprintf(stderr, "Assert Failed (%s:%d): ", __FILE__, __LINE__); \
-            fprintf(stderr, __VA_ARGS__);                                   \
-            exit(1);                                                        \
-        }                                                                   \
-    }
+    // {                                                                       \
+    //     if (!(exp)) {                                                       \
+    //         fprintf(stderr, "Assert Failed (%s:%d): ", __FILE__, __LINE__); \
+    //         fprintf(stderr, __VA_ARGS__);                                   \
+    //         exit(1);                                                        \
+    //     }                                                                   \
+    // }
 
-#define ERROR(...) fprintf(stderr, __VA_ARGS__);
+#define ERROR(...) //fprintf(stderr, __VA_ARGS__);
 
 // 解码针对无符号整数的 LEB128 编码
 uint64_t read_LEB_unsigned(const uint8_t *bytes, uint32_t *pos, uint32_t maxbits);

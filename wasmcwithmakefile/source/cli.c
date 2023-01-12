@@ -1,37 +1,36 @@
 #include "interpreter.h"
 #include "module.h"
 #include "utils.h"
-#include <readline/history.h>
-#include <readline/readline.h>
 #include <stdint.h>
 #include <string.h>
-
-#define BEGIN(x, y) "\033[" #x ";" #y "m"// x: 背景，y: 前景
-#define CLOSE "\033[0m"                  // 关闭所有属性
+#include <stdio.h>
+#include "app.wasm.h"
 
 // 命令行主函数
 int main(int argc, char **argv) {
     char *mod_path;       // Wasm 模块文件路径
     uint8_t *bytes = NULL;// Wasm 模块文件映射的内存
     int byte_count;       // Wasm 模块文件映射的内存大小
-    char *line = NULL;    // 指向每行输入的字符串的指针
+    char line[]="mul 1 2";    // 指向每行输入的字符串的指针
     int res;              // 调用函数过程中的返回值，true 表示函数调用成功，false 表示函数调用失败
-
+    argc=0;
     // 如果参数数量不为 2，则报错并提示正确调用方式，然后退出
-    if (argc != 2) {
-        fprintf(stderr, "The right usage is:\n%s WASM_FILE_PATH\n", argv[0]);
-        return 2;
-    }
+   // if (argc != 2) {
+       // fprintf(stderr, "The right usage is:\n%s WASM_FILE_PATH\n", argv[0]);
+        //return 2;
+   // }
 
+    char *path="examples/arith.wasm";
     // 第二个参数即 Wasm 文件路径
-    mod_path = argv[1];
-
+    mod_path = path;
+    bytes=app_wasm;
+    byte_count=2649;
     // 加载 Wasm 模块，并映射到内存中
-    bytes = mmap_file(mod_path, &byte_count);
+    // bytes = mmap_file(mod_path, &byte_count);
 
     // 如果 Wasm 模块文件映射的内存为 NULL，则报错提示
     if (bytes == NULL) {
-        fprintf(stderr, "Could not load %s", mod_path);
+        // fprintf(stderr, "Could not load %s", mod_path);
         return 2;
     }
 
@@ -40,32 +39,35 @@ int main(int argc, char **argv) {
     
     // 无限循环，每次循环处理单行命令
     while (1) {
-        line = readline(BEGIN(49, 34) "wasmc$ " CLOSE);
-
+        // line = readline(BEGIN(49, 34) "wasmc$ " CLOSE);
+       // line="add 1 2";
         // 指向每行输入的字符串的指针仍为 NULL，则退出命令行
-        if (!line) {
-            break;
-        }
+        // if (!line) {
+        //     break;
+        // }
 
         // 如果输入的字符串为 quit，则退出命令行
-        if (strcmp(line, "quit") == 0) {
-            free(line);
-            break;
-        }
+        // if (strcmp(line, "quit") == 0) {
+        //     free(line);
+        //     break;
+        // }
 
         // 将输入的字符串加入到历史命令
-        add_history(line);
+        // add_history(line);
 
         // 参数个数初始化为 0
-        argc = 0;
+        // argc = 0;
+  
 
+
+     
         // 将输入的字符串按照空格拆分成多个参数
-        argv = split_argv(line, &argc);
+         argv = split_argv(line, &argc);
 
         // 如果没有参数，则继续下一个循环
-        if (argc == 0) {
-            continue;
-        }
+        // if (argc == 0) {
+        //     continue;
+        // }
 
         // 重置运行时相关状态，主要是清空操作数栈、调用栈等
         m->sp = -1;
@@ -77,7 +79,7 @@ int main(int argc, char **argv) {
 
         // 如果没有查找到函数，则报错提示信息，并进入下一个循环
         if (!func) {
-            ERROR("no exported function named '%s'\n", argv[0])
+            // ERROR("no exported function named '%s'\n", argv[0])
             continue;
         }
 
@@ -95,14 +97,14 @@ int main(int argc, char **argv) {
             if (m->sp >= 0) {
                 printf("%s\n", value_repr(&m->stack[m->sp]));
                 // 刷新标准输出缓冲区，把输出缓冲区里的东西打印到标准输出设备上，已实现及时获取执行结果
-                fflush(stdout);
+                // fflush(stdout);
             }
         } else {
-            ERROR("Exception: %s\n", exception)
+            // ERROR("Exception: %s\n", exception)
         }
 
         // readline 会为输入的字符串动态分配内存，所以使用完之后需要将内存释放掉
-        free(line);
+    
     }
 
     return 0;

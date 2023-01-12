@@ -1,19 +1,19 @@
 #include "utils.h"
 #include "module.h"
 #include <ctype.h>
-#include <dlfcn.h>
-#include <fcntl.h>
+// #include <dlfcn.h>
+// #include <fcntl.h>
 #include <inttypes.h>
-#include <limits.h>
+// #include <limits.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-
+// #include <sys/mman.h>
+// #include <sys/stat.h>
+#define CHAR_BIT 8
 // 全局的异常信息，用于收集运行时（即虚拟机执行指令过程）中的异常信息
 char exception[4096];
 
@@ -118,33 +118,33 @@ void *arecalloc(void *ptr, size_t old_nmemb, size_t nmemb, size_t size, char *na
     return res;
 }
 
-// 查找动态库中的 symbol
-// 如果解析成功则返回 true
-// 如果解析失败则返回 false 并设置 err
-bool resolve_sym(char *filename, char *symbol, void **val, char **err) {
-    void *handle = NULL;
-    dlerror();
+// // 查找动态库中的 symbol
+// // 如果解析成功则返回 true
+// // 如果解析失败则返回 false 并设置 err
+// bool resolve_sym(char *filename, char *symbol, void **val, char **err) {
+//     void *handle = NULL;
+//     dlerror();
 
-    if (filename) {
-        handle = dlopen(filename, RTLD_LAZY);
-        if (!handle) {
-            *err = dlerror();
-            return false;
-        }
-    }
+//     if (filename) {
+//         handle = dlopen(filename, RTLD_LAZY);
+//         if (!handle) {
+//             *err = dlerror();
+//             return false;
+//         }
+//     }
 
-    // 查找动态库中的 symbol
-    // 根据 动态链接库 操作句柄(handle)与符号(symbol)，返回符号对应的地址。使用这个函数不但可以获取函数地址，也可以获取变量地址。
-    // handle：由 dlopen 打开动态链接库后返回的指针；
-    // symbol：要求获取的函数或全局变量的名称。
-    // 返回值：指向函数的地址，供调用使用。
-    *val = dlsym(handle, symbol);
+//     // 查找动态库中的 symbol
+//     // 根据 动态链接库 操作句柄(handle)与符号(symbol)，返回符号对应的地址。使用这个函数不但可以获取函数地址，也可以获取变量地址。
+//     // handle：由 dlopen 打开动态链接库后返回的指针；
+//     // symbol：要求获取的函数或全局变量的名称。
+//     // 返回值：指向函数的地址，供调用使用。
+//     *val = dlsym(handle, symbol);
 
-    if ((*err = dlerror()) != NULL) {
-        return false;
-    }
-    return true;
-}
+//     if ((*err = dlerror()) != NULL) {
+//         return false;
+//     }
+//     return true;
+// }
 
 // 基于函数签名计算唯一的掩码值
 uint64_t get_type_mask(Type *type) {
@@ -344,33 +344,33 @@ void *get_export(Module *m, char *name) {
 }
 
 // 打开文件并将文件映射进内存
-uint8_t *mmap_file(char *path, int *len) {
-    int fd;
-    int res;
-    struct stat sb;
-    uint8_t *bytes;
+// uint8_t *mmap_file(char *path, int *len) {
+//     int fd;
+//     int res;
+//     struct stat sb;
+//     uint8_t *bytes;
 
-    fd = open(path, O_RDONLY);
-    if (fd < 0) {
-        FATAL("Could not open file '%s'\n", path)
-    }
+//     fd = open(path, O_RDONLY);
+//     if (fd < 0) {
+//         FATAL("Could not open file '%s'\n", path)
+//     }
 
-    res = fstat(fd, &sb);
-    if (res < 0) {
-        FATAL("Could not stat file '%s' (%d)\n", path, res)
-    }
+//     res = fstat(fd, &sb);
+//     if (res < 0) {
+//         FATAL("Could not stat file '%s' (%d)\n", path, res)
+//     }
 
-    bytes = mmap(0, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
+//     bytes = mmap(0, sb.st_size, PROT_READ, MAP_SHARED, fd, 0);
 
-    // 如果有需要，会将映射的内存大小赋值给参数 len
-    if (len) {
-        *len = (int) sb.st_size;
-    }
-    if (bytes == MAP_FAILED) {
-        FATAL("Could not mmap file '%s'", path)
-    }
-    return bytes;
-}
+//     // 如果有需要，会将映射的内存大小赋值给参数 len
+//     if (len) {
+//         *len = (int) sb.st_size;
+//     }
+//     if (bytes == MAP_FAILED) {
+//         FATAL("Could not mmap file '%s'", path)
+//     }
+//     return bytes;
+// }
 
 // 将字符串 str 按照空格拆分成多个参数
 // 其中 argc 被赋值为拆分字符串 str 得到的参数数量

@@ -429,9 +429,9 @@ struct Module *load_module(const uint8_t *bytes, const uint32_t byte_count) {
                         // 第一个句柄参数为模块名 import_module
                         // 第二个符号参数为成员名 import_field
                         // resolve_sym 函数中，如果从外部模块中找到导入项，则会将导入项的值赋给 val，并返回 true
-                        if (resolve_sym(import_module, import_field, &val, &err)) {
-                            break;
-                        }
+                        // if (resolve_sym(import_module, import_field, &val, &err)) {
+                        //     break;
+                        // }
 
                         // 如果未找到，则报错
                         FATAL("Error: %s\n", err)

@@ -215,11 +215,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  u8g2.clearBuffer();                  // clear the internal memory
-  u8g2.setFont(u8g2_font_7Segments_26x42_mn);  // choose a suitable font
-  u8g2.drawStr(0, 63, "12");             // write something to the internal memory
-  u8g2.setFont(u8g2_font_freedoomr25_tn);  // choose a suitable font
-  u8g2.drawStr(64, 63, ":34");             // write something to the internal memory
-  u8g2.sendBuffer();                   // transfer internal memory to the display
-  delay(1000);
+  // u8g2.clearBuffer();                  // clear the internal memory
+  // u8g2.setFont(u8g2_font_7Segments_26x42_mn);  // choose a suitable font
+  // u8g2.drawStr(0, 63, "12");             // write something to the internal memory
+  // u8g2.setFont(u8g2_font_freedoomr25_tn);  // choose a suitable font
+  // u8g2.drawStr(64, 63, ":34");             // write something to the internal memory
+  // u8g2.sendBuffer();                   // transfer internal memory to the display
+  // delay(1000);
 }

@@ -25,8 +25,7 @@ wasm_vc/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h \
-  ..\wasm3\source\wasm3.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  ..\wasm3\wasm3.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\inttypes.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  ..\wasm3\source\wasm3_defs.h ..\wasm3\source\fib32.wasm.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h ..\wasm3\wasm3_defs.h \
+  ..\wasm3\fib32.wasm.h

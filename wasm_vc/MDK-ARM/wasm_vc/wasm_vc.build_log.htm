@@ -3,39 +3,79 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.36.0.0
-Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: mu 316250765@qq.com, mu, LIC=21E4T-RDXY9-JJ16S-LC149-I7FGY-XTRV5
+IDE-Version: ¦ÌVision V5.37.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: mu mu, mu, LIC=CRMW3-AMZSC-17FRR-KL0D3-8TH5F-Y53IM
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
+Toolchain:       MDK-ARM Professional  Version: 5.37.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.16
-Assembler:       Armasm.exe V6.16
-Linker/Locator:  ArmLink.exe V6.16
-Library Manager: ArmAr.exe V6.16
-Hex Converter:   FromElf.exe V6.16
-CPU DLL:         SARMCM3.DLL V5.36.0.0
-Dialog DLL:      DARMSTM.DL
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
-Dialog DLL:      TCM.DLL V1.53.0.0
+C Compiler:      ArmClang.exe V6.18
+Assembler:       Armasm.exe V6.18
+Linker/Locator:  ArmLink.exe V6.18
+Library Manager: ArmAr.exe V6.18
+Hex Converter:   FromElf.exe V6.18
+CPU DLL:         SARMCM3.DLL V5.37.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      Segger\JL2CM3.dll V2.99.42.0
+Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
-D:\work\stm\wasm_vc\MDK-ARM\wasm_vc.uvprojx
+C:\me\work\wasm3_ports\wasm_vc\MDK-ARM\wasm_vc.uvprojx
 Project File Date:  01/16/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.16', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Build target 'wasm_vc'
-"wasm_vc\wasm_vc.axf" - 0 Error(s), 0 Warning(s).
+*** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'wasm_vc'
+assembling startup_stm32f103xe.s...
+compiling main.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling m3_core.c...
+compiling stm32f1xx_it.c...
+compiling stm32f1xx_hal_tim.c...
+compiling m3_code.c...
+compiling stm32f1xx_hal_dma.c...
+compiling stm32f1xx_hal_gpio.c...
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_msp.c...
+compiling system_stm32f1xx.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+../wasm3/m3_api_libc.c(194): warning: division by zero is undefined [-Wdivision-by-zero]
+    m3ApiReturn(clock() / (CLOCKS_PER_SEC/1000));
+    ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+../wasm3/wasm3.h(331): note: expanded from macro 'm3ApiReturn'
+# define m3ApiReturn(VALUE)         { *raw_return = (VALUE); return m3Err_none; }
+                                                     ^~~~~
+1 warning generated.
+compiling m3_api_libc.c...
+compiling stm32f1xx_hal_exti.c...
+compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_flash.c...
+compiling stm32f1xx_hal_rcc.c...
+compiling m3_emit.c...
+compiling m3_bind.c...
+compiling m3_function.c...
+compiling m3_module.c...
+compiling m3_exec.c...
+compiling m3_info.c...
+compiling m3_env.c...
+compiling m3_parse.c...
+compiling m3_compile.c...
+linking...
+Program Size: Code=124456 RO-data=9524 RW-data=288 ZI-data=1648  
+FromELF: creating hex file...
+"wasm_vc\wasm_vc.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
-                ARM.CMSIS.5.8.0
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
                 CMSIS (Common Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.5.0
+   * Component: CORE Version: 5.6.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.0.pack
@@ -43,15 +83,15 @@ Package Vendor: Keil
                 STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
-  .\RTE\_wasm_vc
-  C:\Users\31625\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
-  C:\Users\31625\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include
+  ./RTE/_wasm_vc
+  C:/Users/wildgeek/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/wildgeek/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.5.0
-      Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+   * Component: ARM::CMSIS:CORE:5.6.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

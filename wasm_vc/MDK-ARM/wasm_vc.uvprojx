@@ -10,7 +10,7 @@
       <TargetName>wasm_vc</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -111,8 +111,8 @@
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments>-REMAP</SimDllArguments>
-          <SimDlgDll>DARMSTM.DL</SimDlgDll>
-          <SimDlgDllArguments>-pSTM32F103VC</SimDlgDllArguments>
+          <SimDlgDll>DCM.DLL</SimDlgDll>
+          <SimDlgDllArguments>-pCM3</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments></TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
@@ -186,6 +186,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -339,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\wasm3\source</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../wasm3</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -496,62 +497,62 @@
             <File>
               <FileName>m3_api_libc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_api_libc.c</FilePath>
+              <FilePath>..\wasm3\m3_api_libc.c</FilePath>
             </File>
             <File>
               <FileName>m3_bind.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_bind.c</FilePath>
+              <FilePath>..\wasm3\m3_bind.c</FilePath>
             </File>
             <File>
               <FileName>m3_code.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_code.c</FilePath>
+              <FilePath>..\wasm3\m3_code.c</FilePath>
             </File>
             <File>
               <FileName>m3_compile.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_compile.c</FilePath>
+              <FilePath>..\wasm3\m3_compile.c</FilePath>
             </File>
             <File>
               <FileName>m3_core.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_core.c</FilePath>
+              <FilePath>..\wasm3\m3_core.c</FilePath>
             </File>
             <File>
               <FileName>m3_emit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_emit.c</FilePath>
+              <FilePath>..\wasm3\m3_emit.c</FilePath>
             </File>
             <File>
               <FileName>m3_env.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_env.c</FilePath>
+              <FilePath>..\wasm3\m3_env.c</FilePath>
             </File>
             <File>
               <FileName>m3_exec.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_exec.c</FilePath>
+              <FilePath>..\wasm3\m3_exec.c</FilePath>
             </File>
             <File>
               <FileName>m3_function.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_function.c</FilePath>
+              <FilePath>..\wasm3\m3_function.c</FilePath>
             </File>
             <File>
               <FileName>m3_info.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_info.c</FilePath>
+              <FilePath>..\wasm3\m3_info.c</FilePath>
             </File>
             <File>
               <FileName>m3_module.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_module.c</FilePath>
+              <FilePath>..\wasm3\m3_module.c</FilePath>
             </File>
             <File>
               <FileName>m3_parse.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\wasm3\source\m3_parse.c</FilePath>
+              <FilePath>..\wasm3\m3_parse.c</FilePath>
             </File>
           </Files>
         </Group>

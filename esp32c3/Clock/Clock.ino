@@ -38,14 +38,72 @@
 
 #include <Arduino.h>
 #include <U8g2lib.h>
-
+#include <WiFi.h>
+#include "time.h"
+#include "sntp.h"
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>
 #endif
 #ifdef U8X8_HAVE_HW_I2C
 #include <Wire.h>
 #endif
+#include "esp_sleep.h"
+#include <ESP32Time.h>
 
+// End of constructor list
+unsigned long last;
+unsigned long now;
+ESP32Time rtc;
+tm tm;
+
+const char* ssid       = "Tenda_50E7E8";
+const char* password   = "FireBrain159357";
+
+const char* ntpServer1 = "ntp1.aliyun.com";
+const char* ntpServer2 = "pool.ntp.org";
+const char* ntpServer3 = "time.nist.gov";
+const long  gmtOffset_sec = 3600;
+const int   daylightOffset_sec = 3600;
+
+const char* time_zone = "HKT-8";  // TimeZone rule for Europe/Rome including daylight adjustment rules (optional)
+
+void printLocalTime()
+{
+
+  if(!getLocalTime(&tm)){
+    Serial.println("No time available (yet)");
+    return;
+  }
+  Serial.println(&tm, "%A, %B %d %Y %H:%M:%S");
+}
+// Callback function (get's called when time adjusts via NTP)
+void timeavailable(struct timeval *t)
+{
+  Serial.println("Got time adjustment from NTP!");
+  printLocalTime();
+}
+//Define bitmasks for GPIO pins used to wake from deep sleep
+//Wake from deep sleep when these pins are high
+//Wake from deep sleep when these pins are low
+const uint64_t WAKEUP_LOW_PIN_BITMASK = 0b000011;  //GPIO0-GPIO3
+//Call to enter deep sleep mode with GPIO wakeup
+void deep_sleep_gpio_init(void) {
+  //GPIO pins must be set as inputs
+  for (int i = 0; i < 6; i++) {
+    gpio_set_direction(gpio_num_t(i), GPIO_MODE_INPUT);
+  }
+
+
+  //hold disable, isolate and power domain config functions may be unnecessary
+  gpio_deep_sleep_hold_dis();
+  esp_sleep_config_gpio_isolate();
+  esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
+
+  //Wakeup on low and high can be used concurrently for separate pins
+  esp_deep_sleep_enable_gpio_wakeup(WAKEUP_LOW_PIN_BITMASK, ESP_GPIO_WAKEUP_GPIO_LOW);
+
+  esp_deep_sleep_start();
+}
 
 /*
   U8g2lib Example Overview:
@@ -334,7 +392,7 @@ U8G2_SSD1306_128X64_NONAME_F_4W_SW_SPI u8g2(U8G2_R0, /* clock=*/6, /* data=*/7, 
 
 
 
-// End of constructor list
+
 
 void setup(void) {
 
@@ -359,11 +417,31 @@ void setup(void) {
   /* U8g2 Project: Pax Instruments Shield: Enable Backlight */
   //pinMode(6, OUTPUT);
   //digitalWrite(6, 0);
-
+Serial.begin(115200);
   u8g2.begin();
   pinMode(0, INPUT_PULLUP);
   pinMode(1, INPUT_PULLUP);
   pinMode(2, INPUT_PULLUP);
+
+  last = millis();
+  // set notification call-back function
+  sntp_set_time_sync_notification_cb( timeavailable );
+  sntp_servermode_dhcp(1);    // (optional)
+  configTzTime(time_zone, ntpServer1, ntpServer2,ntpServer3);
+   //connect to WiFi
+  Serial.printf("Connecting to %s ", ssid);
+  WiFi.begin(ssid, password);
+  unsigned long temp1,temp2;
+  temp1=millis();
+  while (WiFi.status() != WL_CONNECTED) {
+      temp2=millis();
+      if(temp2-temp1>10000){
+        break;
+      }
+      delay(500);
+      Serial.print(".");
+  }
+  Serial.println(" CONNECTED");
 }
 
 uint8_t h = 0;
@@ -372,7 +450,12 @@ uint8_t m = 24;
 
 void loop(void) {
   char m_str[3];
-  strcpy(m_str, u8x8_u8toa(m, 2)); /* convert m to a string with two digits */
+    tm=rtc.getTimeStruct();
+  m=tm.tm_sec;
+  
+  mm=tm.tm_min;
+  h=tm.tm_hour;
+
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_logisoso46_tn);
@@ -385,30 +468,33 @@ void loop(void) {
     // strcpy(m_str, u8x8_u8toa(m, 2));
     // u8g2.drawStr(90,63,m_str);
   } while (u8g2.nextPage());
-  delay(1000);
-  m++;
-  if (m == 60) {
-    m = 0;
-    mm++;
-    if (mm == 60) {
-      mm = 0;
-      h++;
-      if (h == 24) {
-        h = 0;
-      }
-    }
-  }
+  delay(100);
 
+
+
+   now = millis();
   if (digitalRead(2)==0) {
+    last=now;
     mm++;
     if (mm == 60) {
       mm = 0;
     }
+    tm.tm_min=mm;
+    rtc.setTimeStruct(tm);
   }
   if (digitalRead(1)==0) {
+    last=now;
     h++;
     if (h == 24) {
       h = 0;
     }
+    tm.tm_hour=h;
+    rtc.setTimeStruct(tm);
+  }
+
+  if (now - last >= 30000) {
+    last=now;
+    printLocalTime();
+    deep_sleep_gpio_init();  //睡眠
   }
 }

@@ -106,21 +106,25 @@ m3ApiRawFunction(m3_u8g2_oledSetFont) {
   m3ApiSuccess();
 }
 
-
-void u8g2_print(u8g2_uint_t x, u8g2_uint_t y, const char *buf) {
-  u8g2.drawStr(x, y, buf);             // write something to the internal memory
-  u8g2.sendBuffer();                   // transfer internal memory to the display
+m3ApiRawFunction(m3_u8g2_oledClear) {
+  u8g2.clearBuffer();
+  m3ApiSuccess();
 }
 
+m3ApiRawFunction(m3_u8g2_oledSendBuffer) {
+  u8g2.sendBuffer();
+  m3ApiSuccess();
+}
 
 m3ApiRawFunction(m3_u8g2_oledPrint) {
   m3ApiGetArg(uint32_t, x)
     m3ApiGetArg(uint32_t, y)
       m3ApiGetArgMem(const char *, buf)
 
-        u8g2_print(x, y, buf);
+        u8g2.drawStr(x, y, buf);             // write something to the internal memory
   m3ApiSuccess();
 }
+
 
 M3Result LinkArduino(IM3Runtime runtime) {
   IM3Module module = runtime->modules;
@@ -137,6 +141,8 @@ M3Result LinkArduino(IM3Runtime runtime) {
   m3_LinkRawFunction(module, arduino, "print", "v(*i)", &m3_arduino_print);
   m3_LinkRawFunction(module, u8g2, "oledPrint", "v(ii*i)", &m3_u8g2_oledPrint);
   m3_LinkRawFunction(module, u8g2, "oledSetFont", "v(i)", &m3_u8g2_oledSetFont);
+  m3_LinkRawFunction(module, u8g2, "oledClear", "v()", &m3_u8g2_oledClear);
+  m3_LinkRawFunction(module, u8g2, "oledSendBuffer", "v()", &m3_u8g2_oledSendBuffer);
   return m3Err_none;
 }
 

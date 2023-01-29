@@ -50,6 +50,14 @@ func Println(s string) {
 //go:export oledSetFont
 func oledSetFont(x uint)
 
+//go:wasm-module u8g2
+//go:export oledClear
+func oledClear()
+
+//go:wasm-module u8g2
+//go:export oledSendBuffer
+func oledSendBuffer()
+
 /*
  * App
  */
@@ -64,7 +72,7 @@ func loop() {
 	digitalWrite(LED, HIGH)
 	delay(100)
 	digitalWrite(LED, LOW)
-	delay(900)
+	delay(100)
 }
 
 /*
@@ -75,8 +83,10 @@ func main() {
 	setup()
 
 	for {
+		oledClear()
 		oledSetFont(0)
 		oledPrint(0, 63, "1234")
+		oledSendBuffer()
 		loop()
 	}
 }

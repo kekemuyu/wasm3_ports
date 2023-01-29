@@ -2,19 +2,21 @@
   (type $t0 (func (param i32 i32 i32 i32) (result i32)))
   (type $t1 (func (param i32)))
   (type $t2 (func (param i32 i32)))
-  (type $t3 (func (param i32) (result i32)))
-  (type $t4 (func (param i32 i32) (result i32)))
-  (type $t5 (func (param i32 i32 i32 i32)))
-  (type $t6 (func (result i32)))
-  (type $t7 (func (param i32 i32 i32 i32 i32) (result i32)))
-  (type $t8 (func))
-  (import "arduino" "getPinLED" (func $arduino.getPinLED (type $t6)))
+  (type $t3 (func))
+  (type $t4 (func (param i32) (result i32)))
+  (type $t5 (func (param i32 i32) (result i32)))
+  (type $t6 (func (param i32 i32 i32 i32)))
+  (type $t7 (func (result i32)))
+  (type $t8 (func (param i32 i32 i32 i32 i32) (result i32)))
+  (import "arduino" "getPinLED" (func $arduino.getPinLED (type $t7)))
   (import "arduino" "pinMode" (func $arduino.pinMode (type $t2)))
+  (import "u8g2" "oledClear" (func $u8g2.oledClear (type $t3)))
   (import "u8g2" "oledSetFont" (func $u8g2.oledSetFont (type $t1)))
-  (import "u8g2" "oledPrint" (func $u8g2.oledPrint (type $t5)))
+  (import "u8g2" "oledPrint" (func $u8g2.oledPrint (type $t6)))
+  (import "u8g2" "oledSendBuffer" (func $u8g2.oledSendBuffer (type $t3)))
   (import "arduino" "digitalWrite" (func $arduino.digitalWrite (type $t2)))
   (import "arduino" "delay" (func $arduino.delay (type $t1)))
-  (func $f6 (type $t0) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32) (result i32)
+  (func $f8 (type $t0) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32) (result i32)
     (local $l4 i32)
     loop $L0
       local.get $l4
@@ -41,7 +43,7 @@
     local.get $p2
     local.get $p3
     i32.le_u)
-  (func $f7 (type $t0) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32) (result i32)
+  (func $f9 (type $t0) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32) (result i32)
     local.get $p2
     i32.const -2128831035
     i32.mul
@@ -68,7 +70,7 @@
       end
     end
     local.get $p2)
-  (func $f8 (type $t3) (param $p0 i32) (result i32)
+  (func $f10 (type $t4) (param $p0 i32) (result i32)
     (local $l1 i32) (local $l2 i32) (local $l3 i32)
     i32.const 2112
     i32.const 2112
@@ -129,7 +131,7 @@
     local.get $l2
     memory.fill
     local.get $l1)
-  (func $f9 (type $t3) (param $p0 i32) (result i32)
+  (func $f11 (type $t4) (param $p0 i32) (result i32)
     (local $l1 i32) (local $l2 i32)
     global.get $g0
     i32.const 16
@@ -142,7 +144,7 @@
       i32.lt_s
       br_if $B0
       local.get $p0
-      call $f8
+      call $f10
       local.set $l2
       local.get $p0
       i32.eqz
@@ -163,7 +165,7 @@
       i32.const 12
       i32.add
       local.get $l1
-      call $f10
+      call $f12
       local.get $l1
       i32.const 16
       i32.add
@@ -172,7 +174,7 @@
       return
     end
     unreachable)
-  (func $f10 (type $t2) (param $p0 i32) (param $p1 i32)
+  (func $f12 (type $t2) (param $p0 i32) (param $p1 i32)
     i32.const 2060
     local.get $p0
     local.get $p1
@@ -182,9 +184,9 @@
     i32.const 2064
     i32.load
     local.get $p0
-    call $f7
-    call $f11)
-  (func $f11 (type $t5) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32)
+    call $f9
+    call $f13)
+  (func $f13 (type $t6) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32)
     (local $l4 i32) (local $l5 i32) (local $l6 i32) (local $l7 i32) (local $l8 i32) (local $l9 i32) (local $l10 i32) (local $l11 i32) (local $l12 i32) (local $l13 i32) (local $l14 i32) (local $l15 i32) (local $l16 i32) (local $l17 i32) (local $l18 i32) (local $l19 i32)
     global.get $g0
     i32.const 32
@@ -269,15 +271,15 @@
           i32.add
           local.get $p3
           i32.shl
-          call $f8
+          call $f10
           i32.store
           local.get $p0
           i32.load8_u offset=12
-          call $f8
+          call $f10
           local.set $l6
           local.get $p0
           i32.load8_u offset=13
-          call $f8
+          call $f10
           local.set $l11
           i32.const 0
           local.set $l4
@@ -488,7 +490,7 @@
                   local.get $p0
                   i32.load8_u offset=13
                   local.get $l9
-                  call $f12
+                  call $f14
                   i32.const 1
                   i32.and
                   i32.eqz
@@ -512,7 +514,7 @@
               i32.load offset=24
               local.get $l9
               call_indirect $T0 (type $t0)
-              call $f11
+              call $f13
               br $L3
             end
           end
@@ -719,7 +721,7 @@
           i32.shl
           i32.const 12
           i32.add
-          call $f8
+          call $f10
           local.set $p3
           local.get $p0
           local.get $p0
@@ -784,7 +786,7 @@
     i32.const 32
     i32.add
     global.set $g0)
-  (func $f12 (type $t7) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32) (param $p4 i32) (result i32)
+  (func $f14 (type $t8) (param $p0 i32) (param $p1 i32) (param $p2 i32) (param $p3 i32) (param $p4 i32) (result i32)
     (local $l5 i32) (local $l6 i32) (local $l7 i32) (local $l8 i32)
     local.get $p0
     i32.eqz
@@ -918,7 +920,7 @@
       return
     end
     unreachable)
-  (func $f13 (type $t4) (param $p0 i32) (param $p1 i32) (result i32)
+  (func $f15 (type $t5) (param $p0 i32) (param $p1 i32) (result i32)
     i32.const 2060
     local.get $p0
     local.get $p1
@@ -929,9 +931,9 @@
     i32.const 2064
     i32.load
     local.get $p0
-    call $f7
-    call $f12)
-  (func $f14 (type $t1) (param $p0 i32)
+    call $f9
+    call $f14)
+  (func $f16 (type $t1) (param $p0 i32)
     (local $l1 i32) (local $l2 i32) (local $l3 i32) (local $l4 i32) (local $l5 i32) (local $l6 i32)
     local.get $p0
     i32.const 2072
@@ -940,7 +942,7 @@
     i32.const 2064
     i32.load
     local.get $l1
-    call $f7
+    call $f9
     local.tee $l2
     i32.const 24
     i32.shr_u
@@ -1048,9 +1050,9 @@
       end
       unreachable
     end)
-  (func $malloc (type $t3) (param $p0 i32) (result i32)
+  (func $malloc (type $t4) (param $p0 i32) (result i32)
     local.get $p0
-    call $f9)
+    call $f11)
   (func $free (type $t1) (param $p0 i32)
     (local $l1 i32)
     global.get $g0
@@ -1069,7 +1071,7 @@
           i32.const 12
           i32.add
           local.get $l1
-          call $f13
+          call $f15
           i32.const 1
           i32.and
           i32.eqz
@@ -1078,7 +1080,7 @@
           local.get $p0
           i32.store
           local.get $l1
-          call $f14
+          call $f16
         end
         local.get $l1
         i32.const 16
@@ -1088,12 +1090,12 @@
       end
       unreachable
     end)
-  (func $calloc (type $t4) (param $p0 i32) (param $p1 i32) (result i32)
+  (func $calloc (type $t5) (param $p0 i32) (param $p1 i32) (result i32)
     local.get $p0
     local.get $p1
     i32.mul
-    call $f9)
-  (func $realloc (type $t4) (param $p0 i32) (param $p1 i32) (result i32)
+    call $f11)
+  (func $realloc (type $t5) (param $p0 i32) (param $p1 i32) (result i32)
     (local $l2 i32) (local $l3 i32) (local $l4 i32)
     block $B0 (result i32)
       global.get $g0
@@ -1107,7 +1109,7 @@
         i32.lt_s
         br_if $B1
         local.get $p1
-        call $f8
+        call $f10
         local.set $l3
         local.get $p0
         if $I2
@@ -1118,7 +1120,7 @@
           i32.const 12
           i32.add
           local.get $l2
-          call $f13
+          call $f15
           i32.const 1
           i32.and
           i32.eqz
@@ -1139,7 +1141,7 @@
           local.get $p0
           i32.store
           local.get $l2
-          call $f14
+          call $f16
         end
         local.get $p1
         i32.eqz
@@ -1160,7 +1162,7 @@
         i32.const 12
         i32.add
         local.get $l2
-        call $f10
+        call $f12
         local.get $l2
         i32.const 16
         i32.add
@@ -1170,7 +1172,7 @@
       end
       unreachable
     end)
-  (func $_start (type $t8)
+  (func $_start (type $t3)
     i32.const 2096
     memory.size
     i32.const 16
@@ -1192,6 +1194,7 @@
     i32.const 1
     call $arduino.pinMode
     loop $L0
+      call $u8g2.oledClear
       i32.const 0
       call $u8g2.oledSetFont
       i32.const 0
@@ -1199,6 +1202,7 @@
       i32.const 2048
       i32.const 4
       call $u8g2.oledPrint
+      call $u8g2.oledSendBuffer
       i32.const 2400
       i32.load
       i32.const 1
@@ -1209,7 +1213,7 @@
       i32.load
       i32.const 0
       call $arduino.digitalWrite
-      i32.const 900
+      i32.const 100
       call $arduino.delay
       br $L0
     end
@@ -1223,6 +1227,6 @@
   (export "calloc" (func $calloc))
   (export "realloc" (func $realloc))
   (export "_start" (func $_start))
-  (elem $e0 (i32.const 1) func $f6 $f7)
+  (elem $e0 (i32.const 1) func $f8 $f9)
   (data $d0 (i32.const 2048) "1234")
   (data $d1 (i32.const 2052) "\c1\82\01\00p\09\00\00H\08\00\00\c1\82\01\00\00\00\00\00\04\0c\01\00\00\00\00\00\01\00\00\00\00\00\00\00\02"))

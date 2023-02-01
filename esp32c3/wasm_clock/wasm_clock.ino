@@ -3,7 +3,7 @@
 #include "app.wasm.h"
 #include <wasm3.h>
 #include <m3_env.h>
-
+#include <ESP32Time.h>
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>
 #endif
@@ -17,9 +17,12 @@
 #define LED_PIN LED_BUILTIN
 #endif
 
-#define WASM_STACK_SLOTS 5 * 1024
-#define NATIVE_STACK_SIZE (32 * 1024)
+#define WASM_STACK_SLOTS 10 * 1024
+#define NATIVE_STACK_SIZE (64 * 1024)
+// For (most) devices that cannot allocate a 64KiB wasm page
+// #define WASM_MEMORY_LIMIT   4096
 
+ESP32Time rtc;
 void u8g2_print(u8g2_uint_t x, u8g2_uint_t y, const char *buf);
 
 U8G2_SSD1306_128X64_NONAME_F_4W_SW_SPI u8g2(U8G2_R0, /* clock=*/6, /* data=*/7, /* cs=*/10, /* dc=*/4, /* reset=*/5);
@@ -125,11 +128,33 @@ m3ApiRawFunction(m3_u8g2_oledPrint) {
   m3ApiSuccess();
 }
 
+m3ApiRawFunction(m3_rtc_getEpoch) {
+  m3ApiReturnType(uint32_t)
+    m3ApiReturn(rtc.getEpoch()); 
+}
+
+
+m3ApiRawFunction(m3_rtc_getHour) {
+  m3ApiReturnType(uint32_t)
+    m3ApiReturn(rtc.getHour()); 
+}
+
+m3ApiRawFunction(m3_rtc_getSecond) {
+  m3ApiReturnType(uint32_t)
+    m3ApiReturn(rtc.getSecond()); 
+}
+
+m3ApiRawFunction(m3_rtc_getMinute) {
+  m3ApiReturnType(uint32_t)
+    m3ApiReturn(rtc.getMinute()); 
+}
+
 
 M3Result LinkArduino(IM3Runtime runtime) {
   IM3Module module = runtime->modules;
   const char *arduino = "arduino";
   const char *u8g2 = "u8g2";
+  const char *rtc = "rtc";
 
   m3_LinkRawFunction(module, arduino, "millis", "i()", &m3_arduino_millis);
   m3_LinkRawFunction(module, arduino, "delay", "v(i)", &m3_arduino_delay);
@@ -143,6 +168,10 @@ M3Result LinkArduino(IM3Runtime runtime) {
   m3_LinkRawFunction(module, u8g2, "oledSetFont", "v(i)", &m3_u8g2_oledSetFont);
   m3_LinkRawFunction(module, u8g2, "oledClear", "v()", &m3_u8g2_oledClear);
   m3_LinkRawFunction(module, u8g2, "oledSendBuffer", "v()", &m3_u8g2_oledSendBuffer);
+  m3_LinkRawFunction(module, rtc, "getEpoch", "i()", &m3_rtc_getEpoch);
+  m3_LinkRawFunction(module, rtc, "getHour", "i()", &m3_rtc_getHour);
+  m3_LinkRawFunction(module, rtc, "getMinute", "i()", &m3_rtc_getMinute);
+  m3_LinkRawFunction(module, rtc, "getSecond", "i()", &m3_rtc_getSecond);
   return m3Err_none;
 }
 

@@ -1,9 +1,10 @@
 package main
 
+import "strconv"
+
 /*
  * Arduino API
  */
-
 const (
 	LOW  = 0
 	HIGH = 1
@@ -58,6 +59,22 @@ func oledClear()
 //go:export oledSendBuffer
 func oledSendBuffer()
 
+//go:wasm-module rtc
+//go:export getEpoch
+func getEpoch() uint
+
+//go:wasm-module rtc
+//go:export getHour
+func getHour() uint
+
+//go:wasm-module rtc
+//go:export getMinute
+func getMinute() uint
+
+//go:wasm-module rtc
+//go:export getSecond
+func getSecond() uint
+
 /*
  * App
  */
@@ -83,9 +100,13 @@ func main() {
 	setup()
 
 	for {
+		h := getHour()
+		m := getMinute()
+		s := getSecond()
+		Print(strconv.Itoa(int(h)) + ":" + strconv.Itoa(int(m)) + ":" + strconv.Itoa(int(s)) + "\n")
 		oledClear()
 		oledSetFont(0)
-		oledPrint(0, 63, "1234")
+		oledPrint(0, 63, strconv.Itoa(int(m))+":"+strconv.Itoa(int(s)))
 		oledSendBuffer()
 		loop()
 	}

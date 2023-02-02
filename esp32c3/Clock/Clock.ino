@@ -57,7 +57,7 @@ ESP32Time rtc;
 tm tm;
 
 const char* ssid       = "Tenda_50E7E8";
-const char* password   = "FireBrain159357";
+const char* password   = "FireBrain159";
 
 const char* ntpServer1 = "ntp1.aliyun.com";
 const char* ntpServer2 = "pool.ntp.org";

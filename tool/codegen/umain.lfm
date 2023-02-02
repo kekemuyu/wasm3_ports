@@ -1,0 +1,155 @@
+object FrmMain: TFrmMain
+  Left = 374
+  Height = 1264
+  Top = 151
+  Width = 2115
+  Caption = 'FrmMain'
+  ClientHeight = 1264
+  ClientWidth = 2115
+  DesignTimePPI = 144
+  OnCreate = FormCreate
+  LCLVersion = '2.2.4.0'
+  object ComboBox1: TComboBox
+    Left = 168
+    Height = 32
+    Top = 32
+    Width = 166
+    ItemHeight = 24
+    ItemIndex = 0
+    Items.Strings = (
+      '有参数有返回值'
+      '有参数无返回值'
+      '无参数有返回值'
+      '无参数无返回值'
+    )
+    TabOrder = 0
+    Text = '有参数有返回值'
+  end
+  object Memo1: TMemo
+    Left = 75
+    Height = 503
+    Top = 696
+    Width = 493
+    TabOrder = 1
+  end
+  object Memo2: TMemo
+    Left = 648
+    Height = 1111
+    Top = 80
+    Width = 552
+    TabOrder = 2
+  end
+  object Memo3: TMemo
+    Left = 1288
+    Height = 1110
+    Top = 80
+    Width = 573
+    TabOrder = 3
+  end
+  object LabeledEdit1: TLabeledEdit
+    Left = 168
+    Height = 32
+    Top = 80
+    Width = 120
+    EditLabel.Height = 24
+    EditLabel.Width = 72
+    EditLabel.Caption = '库名称：'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 4
+  end
+  object Label1: TLabel
+    Left = 64
+    Height = 24
+    Top = 40
+    Width = 90
+    Caption = '函数类型：'
+    ParentColor = False
+  end
+  object LabeledEdit2: TLabeledEdit
+    Left = 168
+    Height = 32
+    Top = 128
+    Width = 120
+    EditLabel.Height = 24
+    EditLabel.Width = 126
+    EditLabel.Caption = '库中函数名称：'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 5
+  end
+  object Label2: TLabel
+    Left = 88
+    Height = 24
+    Top = 656
+    Width = 54
+    Caption = '函数体'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 88
+    Height = 24
+    Top = 200
+    Width = 72
+    Caption = '函数参数'
+    ParentColor = False
+    OnClick = Label3Click
+  end
+  object Memo4: TMemo
+    Left = 85
+    Height = 144
+    Top = 232
+    Width = 483
+    TabOrder = 6
+  end
+  object Label4: TLabel
+    Left = 85
+    Height = 24
+    Top = 392
+    Width = 90
+    Caption = '函数返回值'
+    ParentColor = False
+    OnClick = Label3Click
+  end
+  object Memo5: TMemo
+    Left = 80
+    Height = 144
+    Top = 424
+    Width = 488
+    TabOrder = 7
+  end
+  object Label5: TLabel
+    Left = 664
+    Height = 24
+    Top = 40
+    Width = 67
+    Caption = 'arduino'
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 1296
+    Height = 24
+    Top = 40
+    Width = 23
+    Caption = 'go'
+    ParentColor = False
+  end
+  object Button1: TButton
+    Left = 368
+    Height = 38
+    Top = 120
+    Width = 113
+    Caption = '生成'
+    OnClick = Button1Click
+    TabOrder = 8
+  end
+  object Button2: TButton
+    Left = 368
+    Height = 38
+    Top = 64
+    Width = 113
+    Caption = '清除'
+    OnClick = Button2Click
+    TabOrder = 9
+  end
+end

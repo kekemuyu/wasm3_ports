@@ -2,12 +2,15 @@
 package main
 
 import (
+	"log"
+
 	"./ui"
 
 	"github.com/ying32/govcl/vcl"
 )
 
 func main() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	vcl.Application.SetScaled(true)
 	vcl.Application.SetTitle("codegen")
 	vcl.Application.Initialize()

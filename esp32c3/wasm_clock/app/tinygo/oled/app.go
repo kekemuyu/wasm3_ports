@@ -100,6 +100,7 @@ func main() {
 	setup()
 
 	for {
+	
 		h := getHour()
 		m := getMinute()
 		s := getSecond()

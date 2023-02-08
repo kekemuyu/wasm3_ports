@@ -1,7 +1,7 @@
 object FrmMain: TFrmMain
-  Left = 374
+  Left = 341
   Height = 1264
-  Top = 151
+  Top = 140
   Width = 2115
   Caption = 'FrmMain'
   ClientHeight = 1264
@@ -42,7 +42,7 @@ object FrmMain: TFrmMain
   object Memo3: TMemo
     Left = 1288
     Height = 1110
-    Top = 80
+    Top = 81
     Width = 573
     TabOrder = 3
   end
@@ -106,8 +106,8 @@ object FrmMain: TFrmMain
     Left = 85
     Height = 24
     Top = 392
-    Width = 90
-    Caption = '函数返回值'
+    Width = 108
+    Caption = '函数返回类型'
     ParentColor = False
     OnClick = Label3Click
   end

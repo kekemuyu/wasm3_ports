@@ -1,5 +1,5 @@
 {
-    "inherits": [ "wasm" ],
+    "inherits": [ "wasi" ],
     "ldflags": [
         "--initial-memory=65536",
         "--max-memory=65536",
